@@ -16,6 +16,7 @@ useEffect(() => {
     .then(response => {
       setPersons(response.data);
     })
+    .catch(err => console.log(err))
 }, []);
 
   return (
