@@ -1,9 +1,8 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 
-// const url = process.env.MONGODB_URI;
-const url = 'mongodb+srv://fullstack:wordpass123@cluster0.5fvsz.mongodb.net/phonebook?retryWrites=true&w=majority';
+const url = process.env.MONGODB_URI
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(result => {
@@ -38,6 +37,6 @@ personSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
-personSchema.plugin(uniqueValidator);
+personSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Person', personSchema)
