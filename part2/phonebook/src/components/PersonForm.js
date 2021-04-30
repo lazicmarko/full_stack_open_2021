@@ -34,17 +34,17 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
             setMessage(newMessage)
             setTimeout(() => {
               setMessage(null)
-            }, 3000);
+            }, 5000);
             setNewName('')
             setNewNumber('')
           })
           .catch(err => {
-            newMessage.text = `An error has ocurred while updating`
+            newMessage.text = err.response.data.error
             newMessage.classname = 'error'
             setMessage(newMessage)
             setTimeout(() => {
               setMessage(null)
-            }, 3000);
+            }, 5000);
           });
       }
     } else {
@@ -57,17 +57,17 @@ const PersonForm = ({persons, setPersons, setMessage}) => {
         setMessage(newMessage)
         setTimeout(() => {
           setMessage(null)
-        }, 3000);
+        }, 5000);
         setNewName('')
         setNewNumber('')
     })
       .catch(err => {
-        newMessage.text = `An error has ocurred while adding`
+        newMessage.text = err.response.data.error
         newMessage.classname = 'error'
         setMessage(newMessage)
         setTimeout(() => {
           setMessage(null)
-        }, 3000);
+        }, 5000);
       });
     }
   }
