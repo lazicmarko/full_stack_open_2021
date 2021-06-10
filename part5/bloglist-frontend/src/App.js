@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Blogs from './components/Blogs'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 import NewBlogForm from './components/NewBlogForm'
 import Notification from './components/Notification'
 import Togglable from './components/Togglable'
@@ -68,13 +69,12 @@ const App = () => {
     resetMessage()
   }
 
-  return (
-    <div>
-      <h1>Bloglist app</h1>
-      <Notification message = {message}/>
-
-      {user === null
-        ? <Togglable buttonLabel = 'login'>
+  if(!user) {
+    return (
+      <div>
+        <h1>Bloglist app</h1>
+        <Notification message = {message}/>
+        <Togglable buttonLabel = 'login'>
           <LoginForm
             username = {username}
             setUsername = {setUsername}
@@ -83,32 +83,43 @@ const App = () => {
             handleLogin = {handleLogin}
           />
         </Togglable>
-        : <div>
-          <div>
-            {user.name} logged in
-            <button onClick={handleLogout}>logout</button>
-          </div>
-          <Togglable buttonLabel = 'new blog' ref={blogFormRef}>
-            <NewBlogForm
-              blogs = {blogs}
-              setBlogs = {setBlogs}
-              setMessage = {setMessage}
-              resetMessage = {resetMessage}
-              blogFormRef = {blogFormRef}
-            />
-          </Togglable>
-
-          <Blogs
-            blogs={blogs}
-            setBlogs={setBlogs}
-            user={user}
-            setMessage={setMessage}
-            resetMessage={resetMessage}
+        <Togglable buttonLabel = 'register' ref={blogFormRef}>
+          <RegisterForm
+            setMessage = {setMessage}
+            resetMessage = {resetMessage}
+            blogFormRef = {blogFormRef}
           />
+        </Togglable>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <div>
+          <h1>Bloglist app</h1>
+          <Notification message = {message}/>
+          {user.name} logged in
+          <button onClick={handleLogout}>logout</button>
         </div>
-      }
-    </div>
-  )
+        <Togglable buttonLabel = 'new blog' ref={blogFormRef}>
+          <NewBlogForm
+            blogs = {blogs}
+            setBlogs = {setBlogs}
+            setMessage = {setMessage}
+            resetMessage = {resetMessage}
+            blogFormRef = {blogFormRef}
+          />
+        </Togglable>
+        <Blogs
+          blogs={blogs}
+          setBlogs={setBlogs}
+          user={user}
+          setMessage={setMessage}
+          resetMessage={resetMessage}
+        />
+      </div>
+    )
+  }
 }
 
 export default App
